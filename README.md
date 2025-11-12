@@ -150,6 +150,14 @@ pip install git+https://github.com/EsmailEbrahim/eh-extract-files-to-txt.git
 > add that folder to your system PATH (usually `C:\Users\<User>\AppData\Roaming\Python\Python312\Scripts`).
 
 
+### On Ubuntu (safe install via pipx)
+```bash
+sudo apt install pipx
+pipx ensurepath
+pipx install eh-extract
+eh-extract -i /path/to/repo -o /path/to/output.txt
+```
+
 ### Usage
 
 ```bash

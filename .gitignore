@@ -1,0 +1,8 @@
+dist
+eh_extract.egg-info
+__pycache__
+*.pyc
+.env
+.vscode
+.idea
+.DS_Store
