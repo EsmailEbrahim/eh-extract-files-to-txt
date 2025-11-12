@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eh-extract"
+version = "1.0.0"
+description = "A CLI tool to extract file contents and structure into a single text file."
+readme = "README.md"
+authors = [{ name = "Esmail Ebrahim Hamza", email = "esmailebraheem771@gmail.com" }]
+license = { text = "MIT" }
+requires-python = ">=3.7"
+keywords = ["cli", "file-extraction", "codebase", "utility"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+[project.urls]
+Homepage = "https://github.com/EsmailEbrahim/eh-extract-files-to-txt"
+
+[project.scripts]
+eh-extract = "eh_extract.cli:main"
