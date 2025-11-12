@@ -43,7 +43,7 @@ Useful for:
 
 ```bash
 git clone https://github.com/EsmailEbrahim/eh-extract-files-to-txt.git
-cd extract-files-to-txt
+cd eh-extract-files-to-txt
 
 ```
 
@@ -125,8 +125,8 @@ This project is licensed under the **MIT License**.
 
 ## 👨‍💻 Author
 
-**Your Name**  
-📧 [[esmailebraheem771@gmail.com](mailto:esmailebraheem771@gmail.com)]  
-🌐 [github.com/EsmailEbrahim]
+**Esmail Ebrahim Hamza**  
+- 📧 [esmailebraheem771@gmail.com](mailto:esmailebraheem771@gmail.com)
+- 🌐 [GitHub: EsmailEbrahim](https://github.com/EsmailEbrahim)
 
 ----------
