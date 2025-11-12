@@ -163,3 +163,9 @@ eh-extract -i /path/to/repo -o /path/to/output.txt
 ```bash
 eh-extract -i /path/to/repo -o /path/to/output.txt --include-ext .py .yml .json
 ```
+
+## 🆕 Changelog
+
+### v1.1.0 (2025-11-13)
+- Added `--exclude-tree-dirs` and `--exclude-tree-files` options.
+- These allow excluding directories or files from the generated tree structure separately from content extraction.

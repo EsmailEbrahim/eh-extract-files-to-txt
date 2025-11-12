@@ -3,10 +3,15 @@ import os
 import argparse
 
 
-def generate_tree(repo_path):
+def generate_tree(repo_path, exclude_dirs=None, exclude_files=None):
     """Generate a 'tree -fa'-like structure for the given path."""
+    exclude_dirs = exclude_dirs or []
+    exclude_files = exclude_files or []
+
     lines = []
     for root, dirs, files in os.walk(repo_path):
+        dirs[:] = [d for d in dirs if d not in exclude_dirs]
+
         level = root.replace(repo_path, '').count(os.sep)
         indent = '│   ' * level
         subdir_name = os.path.basename(root)
@@ -15,6 +20,8 @@ def generate_tree(repo_path):
 
         sub_indent = '│   ' * (level + 1)
         for f in files:
+            if f in exclude_files:
+                continue
             lines.append(f"{sub_indent}├── {f}")
     return "\n".join(lines)
 
@@ -25,17 +32,21 @@ def extract_files_to_txt(
     include_ext=None,
     exclude_dirs=None,
     exclude_files=None,
-    include_tree=True
+    include_tree=True,
+    exclude_tree_dirs=None,
+    exclude_tree_files=None
 ):
     include_ext = include_ext or []
     exclude_dirs = exclude_dirs or []
     exclude_files = exclude_files or []
+    exclude_tree_dirs = exclude_tree_dirs or exclude_dirs
+    exclude_tree_files = exclude_tree_files or exclude_files
 
     with open(output_file, 'w', encoding='utf-8') as txt_file:
         if include_tree:
             txt_file.write(f"Repository structure for: {repo_path}\n")
             txt_file.write("=" * 80 + "\n")
-            tree_str = generate_tree(repo_path)
+            tree_str = generate_tree(repo_path, exclude_tree_dirs, exclude_tree_files)
             txt_file.write(tree_str + "\n" + "=" * 80 + "\n\n")
 
         for root, dirs, files in os.walk(repo_path):
@@ -76,13 +87,25 @@ def main():
         "--exclude-dirs",
         nargs="*",
         default=[".git", "__pycache__", "venv", "node_modules", "dist", "build"],
-        help="List of directories to exclude."
+        help="List of directories to exclude from file extraction."
     )
     parser.add_argument(
         "--exclude-files",
         nargs="*",
         default=[".env"],
-        help="List of specific files to exclude."
+        help="List of specific files to exclude from file extraction."
+    )
+    parser.add_argument(
+        "--exclude-tree-dirs",
+        nargs="*",
+        default=None,
+        help="List of directories to exclude from the tree structure. Defaults to --exclude-dirs."
+    )
+    parser.add_argument(
+        "--exclude-tree-files",
+        nargs="*",
+        default=None,
+        help="List of files to exclude from the tree structure. Defaults to --exclude-files."
     )
     parser.add_argument(
         "--no-tree",
@@ -98,7 +121,9 @@ def main():
         include_ext=args.include_ext,
         exclude_dirs=args.exclude_dirs,
         exclude_files=args.exclude_files,
-        include_tree=not args.no_tree
+        include_tree=not args.no_tree,
+        exclude_tree_dirs=args.exclude_tree_dirs,
+        exclude_tree_files=args.exclude_tree_files
     )
 
     print(f"\n✅ File paths, contents, and structure have been written to {args.output}\n")
