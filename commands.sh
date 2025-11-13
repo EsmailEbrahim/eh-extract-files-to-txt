@@ -59,3 +59,43 @@ pipx install eh-extract
 eh-extract -i /path/to/repo -o /path/to/output.txt
 
 # ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+
+# add your changes
+git add .
+
+# commit with a version bump message
+git commit -m "Bump version to 1.1.0 - add exclude-tree options"
+
+# bump version to 1.1.0 - add exclude-tree options
+git tag v1.1.0
+
+# # push code and tag to GitHub
+git push origin cli
+git push origin v1.1.0
+
+# clean previous build
+rmdir /s /q dist eh_extract.egg-info  # Windows PowerShell
+# or
+rm -rf dist eh_extract.egg-info       # Linux/macOS
+
+# install or upgrade build tools
+python -m pip install --upgrade build
+
+# build the package
+python -m build
+
+# install or upgrade twine
+python -m pip install --upgrade twine
+
+# upload to PyPI
+python -m twine upload dist/*
+
+# update via pip
+pip install --upgrade eh-extract
+
+# update via pipx
+pipx upgrade eh-extract
+
+# ----------------------------------------------------------------------------
