@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 import os
 import argparse
+from eh_extract import __version__
+
+
+version = __version__
 
 
 def generate_tree(repo_path, exclude_dirs=None, exclude_files=None):
@@ -111,6 +115,11 @@ def main():
         "--no-tree",
         action="store_true",
         help="Exclude the directory tree from the output."
+    )
+    parser.add_argument(
+        "-v", "--version",
+        action="version",
+        version=f"eh-extract {version}"
     )
 
     args = parser.parse_args()
